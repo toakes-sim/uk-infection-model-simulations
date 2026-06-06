@@ -1,0 +1,75 @@
+{ "list_of_all_known_symptoms":
+[
+{
+"symptom_name":"Red Ear Boils",
+"symptom_type":"Dermatological",
+"symptom_description":"inflamed ears which host several red boils that are painful and sensitive to the touch",
+"symptom_occurrence_rate_if_infected":1,
+"symptom_occurrence_rate_if_not_infected":0
+},
+{
+"symptom_name":"Ears fall off",
+"symptom_type":"Disfigurement",
+"symptom_description":"ears have fallen off leaving a raw painful weeping wound on the side of the head",
+"symptom_occurrence_rate_if_infected":0.01,
+"symptom_occurrence_rate_if_not_infected":0
+},
+{
+"symptom_name":"Coughing Blood",
+"symptom_type":"Respiratory",
+"symptom_description":"coughing occurs quite frequently and when it does blood is present amongst the phlegm that is coughed up",
+"symptom_occurrence_rate_if_infected":0.8,
+"symptom_occurrence_rate_if_not_infected":0.2
+},
+{
+"symptom_name":"Normal Cough",
+"symptom_type":"Respiratory",
+"symptom_description":"coughing occurs quite frequently occasionally with phlegm",
+"symptom_occurrence_rate_if_infected":0.6,
+"symptom_occurrence_rate_if_not_infected":0.5
+},
+{
+"symptom_name":"Sneezing",
+"symptom_type":"Respiratory",
+"symptom_description":"sneezing fits occur throughout the day",
+"symptom_occurrence_rate_if_infected":0.3,
+"symptom_occurrence_rate_if_not_infected":0.5
+},
+{
+"symptom_name":"Elbow Pain",
+"symptom_type":"Orthopedic",
+"symptom_description":"elbows have become sore and started to seize up a bit",
+"symptom_occurrence_rate_if_infected":0.4,
+"symptom_occurrence_rate_if_not_infected":0.6
+},
+{
+"symptom_name":"Knee Pain",
+"symptom_type":"Orthopedic",
+"symptom_description":"knees have become sore and started to seize up a bit",
+"symptom_occurrence_rate_if_infected":0.1,
+"symptom_occurrence_rate_if_not_infected":0.3
+},
+{
+"symptom_name":"Red Rash",
+"symptom_type":"Dermatological",
+"symptom_description":"a none severe red rash that is sore to touch has appeared somewhere on the body",
+"symptom_occurrence_rate_if_infected":0.5,
+"symptom_occurrence_rate_if_not_infected":0.5
+},
+{
+"symptom_name":"Hearing Loss",
+"symptom_type":"Sensory",
+"symptom_description":"hearing has started to decline faster than it had previously done",
+"symptom_occurrence_rate_if_infected":0.4,
+"symptom_occurrence_rate_if_not_infected":0.4
+},
+{
+"symptom_name":"Sight Loss",
+"symptom_type":"Sensory",
+"symptom_description":"vision has started to decline faster than it had previously done",
+"symptom_occurrence_rate_if_infected":0.3,
+"symptom_occurrence_rate_if_not_infected":0.3
+}
+],
+"author": "Barnard Jenkins"
+}
