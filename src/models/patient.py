@@ -3,12 +3,13 @@ import random
 from math import floor
 from openai import OpenAI
 from src.services.symptoms import Symptoms
+from src.endpoints.endpoint_for_databases import EndpointForDatabases
 
 class Patient():
-    def __init__(self, allocated_doctor, surgery_infection_rate, patient_db):
+    def __init__(self, allocated_doctor, surgery_infection_rate):
         self.client = OpenAI(base_url=os.environ['OLLAMA_IP'], api_key='ollama')
         self.model = 'llama3.2'
-        self.patient_db = patient_db
+        self.endpoints = EndpointForDatabases()
         self.create_patient_record(allocated_doctor, surgery_infection_rate)
 
     def create_patient_persona(self, patient_symptom_list, symptoms_service):
@@ -46,7 +47,7 @@ class Patient():
 
         self.persona = self.create_patient_persona(patient_symptom_list, symptoms_service)
 
-        self.patient_id = self.patient_db.add_record_of_patient(allocated_doctor.surgery_location,
+        self.patient_id = self.endpoints.add_record_of_patient_to_db(allocated_doctor.surgery_location,
                                               allocated_doctor.doctor_id,
                                               patient_age,
                                               self.persona,

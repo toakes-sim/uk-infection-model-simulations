@@ -1,15 +1,8 @@
-import mysql.connector
-import uuid
-import os
+from src.dbs.base_db_connection import BaseDBConnection
 
-class AppointmentDBConnection():
+class AppointmentDBConnection(BaseDBConnection):
     def __init__(self):
-        self.cnx = mysql.connector.connect(
-            user=os.environ['MYSQLUSERNAME'],
-            password=os.environ['MYSQLPASSWORD'],
-            host='localhost',
-            database='national_health_monitoring')
-        self.cursor = self.cnx.cursor(dictionary=True)
+        super().__init__()
         # Try and create the relevant table if it does not exist
         try:
             query = ("CREATE TABLE IF NOT EXISTS appointmentsdb ("
@@ -22,7 +15,7 @@ class AppointmentDBConnection():
 
             self.cnx.commit()
 
-        except mysql.connector.Error as err:
+        except self.connector.Error as err:
             print(err)
 
     def add_record_of_appointment(self, patient_id, doctor_id, surgery_location):
@@ -60,10 +53,3 @@ class AppointmentDBConnection():
         self.cursor.execute(query,)
         results = self.cursor.fetchall()
         return results
-
-    @staticmethod
-    def generate_uuid():
-        return str(uuid.uuid4())
-
-    def close(self):
-        self.cnx.close()

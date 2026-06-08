@@ -1,12 +1,14 @@
-import pathlib
-import ast
 import os
+import ast
+import pathlib
+from src.endpoints.endpoint_for_databases import EndpointForDatabases
 
 class Appointment():
-    def __init__(self, doctor= None, patient = None, appointment_db = None):
-        self.src_directory = os.path.join(pathlib.Path(__file__).parent.resolve())
+    def __init__(self):
+        self.storage_location = os.environ['STORAGE_LOCATION']
+        self.endpoints = EndpointForDatabases()
 
-    def run_full_conversation(self, doctor, patient, appointment_db):
+    def run_full_conversation(self, doctor, patient):
 
         surgery_location = doctor.surgery_location
 
@@ -17,16 +19,16 @@ class Appointment():
 
         message_history = doctor.submit_final_request(message_history)
 
-        appointment_id = appointment_db.add_record_of_appointment(patient.patient_id, doctor.doctor_id, surgery_location)
+        appointment_id = self.endpoints.add_record_of_appointment_to_db(patient.patient_id, doctor.doctor_id, surgery_location)
 
-        with open(f'{self.src_directory}/apponitment_transcript_records/appointment_{appointment_id}.txt', 'w') as f:
+        with open(f'{self.storage_location}/appointment_{appointment_id}.txt', 'w') as f:
             for line in message_history:
                 f.write(f"{line}\n")
 
         return appointment_id
 
     def get_appointment_history(self, appointment_id):
-        with open(f'{self.src_directory}/apponitment_transcript_records/appointment_{appointment_id}.txt', 'r') as f:
+        with open(f'{self.storage_location}/appointment_{appointment_id}.txt', 'r') as f:
             transcript = f.read()
             f.close()
             transcript = transcript.split('\n')
@@ -41,3 +43,8 @@ class Appointment():
                     readable_transcript.append({"speaker": "Patient", "text": f"{transcript[i][34:-2]}"})
 
         return [readable_transcript, patient_prompt]
+
+    def get_patient_record_for_appointment(self, appointment_id):
+        appointment_data = self.endpoints.get_record_of_appointment(appointment_id)
+        patient_data = self.endpoints.get_record_of_patient(appointment_data['patient_id'])
+        return patient_data
