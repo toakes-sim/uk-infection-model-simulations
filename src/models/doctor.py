@@ -1,11 +1,15 @@
 import os
 from openai import OpenAI
+from src.endpoints.endpoint_for_databases import EndpointForDatabases
 
 class Doctor:
-    def __init__(self, doctor_db):
+    def __init__(self):
         self.client = OpenAI(base_url=os.environ['OLLAMA_IP'], api_key='ollama')
         self.model = 'llama3.2'
-        self.doctor_db = doctor_db
+        self.endpoints = EndpointForDatabases()
+
+    def set_doctor_name(self, name):
+        self.name = name
 
     def set_other_prompt_parameters(self):
         self.doctor_system_prompt = {'role': 'system', 'content': self.persona}
@@ -15,11 +19,11 @@ class Doctor:
     def create_doctor_record(self, surgery_location):
         self.persona = 'You are a doctor working in the Uk. You have some patients coming to see you with various ailments. You must diagnose them quickly.'
         self.surgery_location = surgery_location
-        self.doctor_id = self.doctor_db.add_record_of_doctor(self.surgery_location, self.persona)
+        self.doctor_id = self.endpoints.add_record_of_doctor_to_db(self.surgery_location, self.persona, self.name)
         self.set_other_prompt_parameters()
 
     def select_doctor_record(self):
-        self.doctor_id, self.surgery_location, self.persona = self.doctor_db.get_random_record_of_doctor()
+        self.doctor_id, self.surgery_location, self.persona = self.endpoints.get_random_record_of_doctor()
         self.set_other_prompt_parameters()
 
     def doctor_message_history(self, message_history, final_response = False):

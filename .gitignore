@@ -186,7 +186,7 @@ cython_debug/
 #   be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 #   and can be added to the global gitignore or merged into this file.  For a more nuclear
 #   option (not recommended) you can uncomment the following to ignore the entire idea folder.
- .idea/
+.idea/
 
 # Abstra
 #   Abstra is an AI-powered process automation framework.
@@ -216,8 +216,3 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
-
-# This is a temparery exclusion, I would not normally store files in the repo structure itself. This was a tempary
-# solution while I worked out how best to suppport the other part of this project which was the front end. Normally I
-# would uses some form of cold cloud storage to host what I placed in here.
-/src/services/apponitment_transcript_records/

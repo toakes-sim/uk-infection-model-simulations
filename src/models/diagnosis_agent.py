@@ -102,7 +102,7 @@ class DiagnosisAgent:
 
         return chat_output
 
-    def given_list_of_symptoms_determine_chance_of_infection(self, patient_symptom_list):
+    def determine_chance_of_infection_given_list_of_symptoms(self, patient_symptom_list):
 
         product_of_probability_of_infected = 1
         product_of_probability_of_not_infected = 1

@@ -1,14 +1,8 @@
-import mysql.connector
-import os
+from src.dbs.base_db_connection import BaseDBConnection
 
-class SurgeryDBConnection():
+class SurgeryDBConnection(BaseDBConnection):
     def __init__(self):
-        self.cnx = mysql.connector.connect(
-            user=os.environ['MYSQLUSERNAME'],
-            password=os.environ['MYSQLPASSWORD'],
-            host='localhost',
-            database='national_health_monitoring')
-        self.cursor = self.cnx.cursor(dictionary=True)
+        super().__init__()
         # Try and create the relevant table if it does not exist
         try:
             query = ("CREATE TABLE IF NOT EXISTS surgerydb ("
@@ -22,7 +16,7 @@ class SurgeryDBConnection():
             self.cursor.execute(query)
             self.cnx.commit()
 
-        except mysql.connector.Error as err:
+        except self.connector.Error as err:
             print(err)
 
     def check_surgery(self, surgery_location):
@@ -84,6 +78,3 @@ class SurgeryDBConnection():
         self.cursor.execute(query, (surgery_location,))
         results = [float(x['surgery_infection_status']) for x in self.cursor.fetchall()]
         return results[0]
-
-    def close(self):
-        self.cnx.close()
